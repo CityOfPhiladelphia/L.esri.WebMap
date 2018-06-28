@@ -21,7 +21,8 @@
   <script src="//unpkg.com/esri-leaflet-vector@1.0.2"></script>
 
   <!-- Load Esri Leaflet Renderers from CDN -->
-  <script src="//cdn.jsdelivr.net/leaflet.esri.renderers/2.0.3/esri-leaflet-renderers.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/leaflet.esri.renderers/2.0.3/esri-leaflet-renderers.js"></script> -->
+  <script src="https://unpkg.com/esri-leaflet-renderers@2.0.6"></script>
 
   <!-- Load Vector Icon from GitHub -->
   <script src="https://muxlab.github.io/Leaflet.VectorIcon/L.VectorIcon.js"></script>
@@ -29,6 +30,8 @@
   <!-- Load Leaflet Omnivore from CDN -->
   <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<!-- Load L.esri.WebMap -->
 	<script src="dist/esri-leaflet-webmap-debug.js"></script>
 
@@ -52,7 +55,7 @@
 <div id="map"></div>
 
 <script>
-    var webmapId = '22c504d229f14c789c5b49ebff38b941'; // Default WebMap ID
+    var webmapId = '4c3ed877199c402895b7fa45ce6409b6'; // Default WebMap ID
 
     var urlParams = location.search.substring(1).split('&');
     for(var i=0; urlParams[i]; i++) {

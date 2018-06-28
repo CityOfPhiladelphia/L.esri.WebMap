@@ -1,5 +1,25 @@
+
+function transformPhoneNumber(value) {
+  var s2 = (""+value).replace(/\D/g, '');
+  var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+  return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+}
+
+function transformDate(value) {
+  // var moment = globals.moment;
+  return moment(value).format('MM/DD/YYYY');
+}
+
+function transformDecimalPlace(value) {
+  var number = String(value).match(/\d+/)[0].replace(/(.)(?=(\d{3})+$)/g,'$1,');
+  var label = String(value).replace(/[0-9]/g, '') || '';
+  return number + ' ' + label;
+}
+
+
 export function createPopupContent (popupInfo, properties) {
-  // console.log(popupInfo, properties);
+  // console.log('popupInfo:', popupInfo);
+  // console.log('popup properties:', properties);
   var r = /\{([^\]]*)\}/g;
   var titleText = '';
   var content = '';
@@ -13,15 +33,78 @@ export function createPopupContent (popupInfo, properties) {
     return properties[m[1]];
   });
 
-  content = '<div class="leaflet-popup-content-title"><h4>' + titleText + '</h4></div><div class="leaflet-popup-content-description" style="max-height:200px;overflow:auto;">';
+  content = '<div class="leaflet-popup-content-title text-center"><h4>' + titleText + '</h4></div><div class="leaflet-popup-content-description" style="max-height:200px;overflow:auto;">';
+
+  var contentStart = '<div style="font-weight:bold;color:#999;margin-top:5px;word-break:break-all;">'
+  var contentMiddle = '</div><p style="margin-top:0;margin-bottom:5px;word-break:break-all;">'
+  var aTagStart = '<a target="_blank" href="'
+  var emailTagStart = '<a href="mailto:'
 
   if (popupInfo.fieldInfos !== undefined) {
     for (var i = 0; i < popupInfo.fieldInfos.length; i++) {
       if (popupInfo.fieldInfos[i].visible === true) {
-        content += '<div style="font-weight:bold;color:#999;margin-top:5px;word-break:break-all;">' + popupInfo.fieldInfos[i].label + '</div><p style="margin-top:0;margin-bottom:5px;word-break:break-all;">' + properties[popupInfo.fieldInfos[i].fieldName] + '</p>';
+        if (properties[popupInfo.fieldInfos[i].fieldName] === null) {
+          content += contentStart
+                  + popupInfo.fieldInfos[i].label
+                  + contentMiddle
+                  // + aTagStart
+                  // + properties[popupInfo.fieldInfos[i].fieldName]
+                  + 'none'
+                  // + '">'
+                  // + properties[popupInfo.fieldInfos[i].fieldName]
+                  + '</p>';
+        // if the info is a URL
+        } else if (popupInfo.fieldInfos[i].fieldName === 'URL' ||
+            popupInfo.fieldInfos[i].fieldName === 'CODE_SEC_1' ||
+            popupInfo.fieldInfos[i].fieldName === 'WEBSITE' ||
+            popupInfo.fieldInfos[i].fieldName === 'FINAL_LINK_COPY' ||
+            popupInfo.fieldInfos[i].fieldName === 'LINK' ||
+            // zoning overlays:
+            popupInfo.fieldInfos[i].fieldName === 'CODE_SECTION_LINK'
+        ) {
+          content += contentStart
+                  + popupInfo.fieldInfos[i].label
+                  + contentMiddle
+                  + aTagStart
+                  + properties[popupInfo.fieldInfos[i].fieldName]
+                  + '">'
+                  + properties[popupInfo.fieldInfos[i].fieldName]
+                  + '</a></p>';
+        // if the info is an email address
+        } else if (popupInfo.fieldInfos[i].fieldName.includes('EMAIL')) {
+          content += contentStart
+                  + popupInfo.fieldInfos[i].label
+                  + contentMiddle
+                  + emailTagStart
+                  + properties[popupInfo.fieldInfos[i].fieldName]
+                  + '">'
+                  + properties[popupInfo.fieldInfos[i].fieldName]
+                  + '</a></p>';
+        // if the info is a phone number
+        } else if (popupInfo.fieldInfos[i].fieldName.includes('PHONE')) {
+          content += contentStart
+                  + popupInfo.fieldInfos[i].label
+                  + contentMiddle
+                  + transformPhoneNumber(properties[popupInfo.fieldInfos[i].fieldName])
+                  + '</p>';
+        // if the info is a date
+      } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE')) {
+          content += contentStart
+                  + popupInfo.fieldInfos[i].label
+                  + contentMiddle
+                  + transformDate(properties[popupInfo.fieldInfos[i].fieldName])
+                  + '</p>';
+        } else {
+          content += contentStart
+                  + popupInfo.fieldInfos[i].label
+                  + contentMiddle
+                  + properties[popupInfo.fieldInfos[i].fieldName]
+                  + '</p>';
+        }
       }
     }
     content += '</div>';
+
   } else if (popupInfo.description !== undefined) {
     // KMLLayer popup
     var descriptionText = popupInfo.description.replace(r, function (s) {

@@ -57,7 +57,7 @@ export var WebMap = L.Evented.extend({
   },
 
   _operationalLayer: function (layer, layers, map, params, paneName) {
-    var lyr = operationalLayer(layer, layers, map, params);
+    var lyr = operationalLayer(layer, layers, map, params, paneName);
     if (lyr !== undefined && layer.visibility === true) {
       lyr.addTo(map);
     }
@@ -113,8 +113,10 @@ export var WebMap = L.Evented.extend({
               } else {
                 console.log(res.access);
                 if (res.access !== 'public') {
+                  // console.log('in _loadWebMap public')
                   this._operationalLayer(baseMapLayer, layers, map, params);
                 } else {
+                  // console.log('in _loadWebMap NOT public')
                   this._operationalLayer(baseMapLayer, layers, map, {});
                 }
               }
@@ -131,6 +133,7 @@ export var WebMap = L.Evented.extend({
           var paneName = 'esri-webmap-layer' + i;
           map.createPane(paneName);
           if (layer.itemId !== undefined) {
+            // console.log('WebMapLoader.js paneName:', paneName);
             var itemRequestUrl = 'https://' + server + '/sharing/rest/content/items/' + layer.itemId;
             L.esri.request(itemRequestUrl, params, function (err, res) {
               if (err) {
@@ -138,8 +141,10 @@ export var WebMap = L.Evented.extend({
               } else {
                 console.log(res.access);
                 if (res.access !== 'public') {
+                  console.log('inside public, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
                   this._operationalLayer(layer, layers, map, params, paneName);
                 } else {
+                  console.log('NOT inside public, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
                   this._operationalLayer(layer, layers, map, {}, paneName);
                 }
               }

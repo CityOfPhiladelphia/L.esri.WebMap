@@ -9,11 +9,12 @@ import { polygonLabelPos } from './Label/PolygonLabel';
 import { createPopupContent } from './Popup/Popup';
 
 export function operationalLayer (layer, layers, map, params, paneName) {
+  console.log('operationalLayer, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
   return _generateEsriLayer(layer, layers, map, params, paneName);
 }
 
 export function _generateEsriLayer (layer, layers, map, params, paneName) {
-  console.log('generateEsriLayer: ', layer.title, layer);
+  console.log('generateEsriLayer: ', layer.title, 'paneName:', paneName, 'layer:', layer);
   var lyr;
   var labels = [];
   var labelsLayer;
@@ -45,13 +46,15 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
       opacity: layer.opacity,
       pane: paneName,
       onEachFeature: function (geojson, l) {
+        l.feature.layerName = layer.title.split('_')[1];
         if (fc !== undefined) {
           popupInfo = fc.popupInfo;
           labelingInfo = fc.labelingInfo;
         }
         if (popupInfo !== undefined && popupInfo !== null) {
           var popupContent = createPopupContent(popupInfo, geojson.properties);
-          l.bindPopup(popupContent);
+          // l.bindPopup(popupContent);
+          l.feature.popupHtml = popupContent
         }
         if (labelingInfo !== undefined && labelingInfo !== null) {
           var coordinates = l.feature.geometry.coordinates;
@@ -134,9 +137,11 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
           drawingInfo: drawingInfo,
           pane: paneName,
           onEachFeature: function (geojson, l) {
+            l.feature.layerName = layer.title.split('_')[1];
             if (layer.popupInfo !== undefined) {
               var popupContent = createPopupContent(layer.popupInfo, geojson.properties);
-              l.bindPopup(popupContent);
+              // l.bindPopup(popupContent);
+              l.feature.popupHtml = popupContent
             }
             if (layer.layerDefinition.drawingInfo.labelingInfo !== undefined && layer.layerDefinition.drawingInfo.labelingInfo !== null) {
               var labelingInfo = layer.layerDefinition.drawingInfo.labelingInfo;
@@ -185,9 +190,11 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
         where: where,
         pane: paneName,
         onEachFeature: function (geojson, l) {
+          l.feature.layerName = layer.title.split('_')[1];
           if (layer.popupInfo !== undefined) {
             var popupContent = createPopupContent(layer.popupInfo, geojson.properties);
-            l.bindPopup(popupContent);
+            // l.bindPopup(popupContent);
+            l.feature.popupHtml = popupContent
           }
         }
       });
@@ -203,9 +210,11 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
       token: params.token || null,
       pane: paneName,
       onEachFeature: function (geojson, l) {
+        l.feature.layerName = layer.title.split('_')[1];
         if (layer.popupInfo !== undefined) {
           var popupContent = createPopupContent(layer.popupInfo, geojson.properties);
-          l.bindPopup(popupContent);
+          // l.bindPopup(popupContent);
+          l.feature.popupHtml = popupContent
         }
       }
     });
@@ -222,9 +231,11 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
       opacity: layer.opacity,
       pane: paneName,
       onEachFeature: function (geojson, l) {
+        l.feature.layerName = layer.title.split('_')[1];
         if (layer.popupInfo !== undefined) {
           var popupContent = createPopupContent(layer.popupInfo, geojson.properties);
-          l.bindPopup(popupContent);
+          // l.bindPopup(popupContent);
+          l.feature.popupHtml = popupContent
         }
         if (layer.layerDefinition.drawingInfo.labelingInfo !== undefined && layer.layerDefinition.drawingInfo.labelingInfo !== null) {
           var labelingInfo = layer.layerDefinition.drawingInfo.labelingInfo;
@@ -266,10 +277,12 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
       opacity: layer.opacity,
       pane: paneName,
       onEachFeature: function (geojson, l) {
+        l.feature.layerName = layer.title.split('_')[1];
         if (kml.popupInfo !== undefined && kml.popupInfo !== null) {
           console.log(kml.popupInfo);
           var popupContent = createPopupContent(kml.popupInfo, geojson.properties);
-          l.bindPopup(popupContent);
+          // l.bindPopup(popupContent);
+          l.feature.popupHtml = popupContent
         }
         if (kml.labelingInfo !== undefined && kml.labelingInfo !== null) {
           var labelingInfo = kml.labelingInfo;
@@ -336,17 +349,15 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
         token: params.token || null
       });
 
-      if (map.options.attributionControl && map.attributionControl) {
-        L.esri.request(layer.url, {}, function (err, res) {
-          if (err) {
-            console.log(err);
-          } else {
-            var maxWidth = (map.getSize().x - 55);
-            var tiledAttribution = '<span class="esri-attributions" style="line-height:14px; vertical-align: -3px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; display:inline-block; max-width:' + maxWidth + 'px;">' + res.copyrightText + '</span>';
-            map.attributionControl.addAttribution(tiledAttribution);
-          }
-        });
-      }
+      L.esri.request(layer.url, {}, function (err, res) {
+        if (err) {
+          console.log(err);
+        } else {
+          var maxWidth = (map.getSize().x - 55);
+          var tiledAttribution = '<span class="esri-attributions" style="line-height:14px; vertical-align: -3px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; display:inline-block; max-width:' + maxWidth + 'px;">' + res.copyrightText + '</span>';
+          map.attributionControl.addAttribution(tiledAttribution);
+        }
+      });
     }
 
     document.getElementsByClassName('leaflet-tile-pane')[0].style.opacity = layer.opacity || 1;
