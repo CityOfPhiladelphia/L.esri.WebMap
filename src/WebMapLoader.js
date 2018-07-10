@@ -64,6 +64,7 @@ export var WebMap = L.Evented.extend({
   },
 
   _loadWebMapMetaData: function (id) {
+    // console.log('_loadWebMapMetaData is running, id:', id, 'this._server:', this._server);
     var params = {};
     var map = this._map;
     var webmap = this;
@@ -76,7 +77,7 @@ export var WebMap = L.Evented.extend({
       if (error) {
         console.log(error);
       } else {
-        console.log('WebMap MetaData: ', response);
+        // console.log('WebMap MetaData: ', response);
         webmap.portalItem = response;
         webmap.title = response.title;
         webmap._metadataLoaded = true;
@@ -92,15 +93,16 @@ export var WebMap = L.Evented.extend({
     var server = this._server;
     var params = {};
     var webmapRequestUrl = 'https://' + server + '/sharing/rest/content/items/' + id + '/data';
+    // console.log('webmapRequestUrl:', webmapRequestUrl, 'this._token:', this._token);
     if (this._token && this._token.length > 0) {
       params.token = this._token;
     }
 
     L.esri.request(webmapRequestUrl, params, function (error, response) {
       if (error) {
-        console.log(error);
+        console.log('L.esri.request error:', error);
       } else {
-        console.log('WebMap: ', response);
+        // console.log('WebMap: ', response);
         this._layersNum = response.baseMap.baseMapLayers.length + response.operationalLayers.length;
 
         // Add Basemap
@@ -130,6 +132,7 @@ export var WebMap = L.Evented.extend({
 
         // Add Operational Layers
         response.operationalLayers.map(function (layer, i) {
+          // console.log('response.operationalLayers, layer:', layer);
           var paneName = 'esri-webmap-layer' + i;
           map.createPane(paneName);
           if (layer.itemId !== undefined) {
@@ -141,10 +144,10 @@ export var WebMap = L.Evented.extend({
               } else {
                 console.log(res.access);
                 if (res.access !== 'public') {
-                  console.log('inside public, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
+                  // console.log('inside public, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
                   this._operationalLayer(layer, layers, map, params, paneName);
                 } else {
-                  console.log('NOT inside public, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
+                  // console.log('NOT inside public, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
                   this._operationalLayer(layer, layers, map, {}, paneName);
                 }
               }

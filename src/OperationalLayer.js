@@ -9,12 +9,12 @@ import { polygonLabelPos } from './Label/PolygonLabel';
 import { createPopupContent } from './Popup/Popup';
 
 export function operationalLayer (layer, layers, map, params, paneName) {
-  console.log('operationalLayer, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
+  // console.log('operationalLayer, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
   return _generateEsriLayer(layer, layers, map, params, paneName);
 }
 
 export function _generateEsriLayer (layer, layers, map, params, paneName) {
-  console.log('generateEsriLayer: ', layer.title, 'paneName:', paneName, 'layer:', layer);
+  // console.log('generateEsriLayer: ', layer.title, 'paneName:', paneName, 'layer:', layer);
   var lyr;
   var labels = [];
   var labelsLayer;
@@ -22,7 +22,7 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
   var i, len;
 
   if (layer.type === 'Feature Collection' || layer.featureCollection !== undefined) {
-    console.log('create FeatureCollection');
+    // console.log('create FeatureCollection');
 
     map.createPane(labelPaneName);
 
@@ -92,7 +92,7 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
     var where = '1=1';
     if (layer.layerDefinition.drawingInfo !== undefined) {
       if (layer.layerDefinition.drawingInfo.renderer.type === 'heatmap') {
-        console.log('create HeatmapLayer');
+        // console.log('create HeatmapLayer');
         var gradient = {};
 
         layer.layerDefinition.drawingInfo.renderer.colorStops.map(function (stop) {
@@ -117,10 +117,10 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
 
         return lyr;
       } else {
-        console.log('create ArcGISFeatureLayer (with layerDefinition.drawingInfo)');
+        // console.log('create ArcGISFeatureLayer (with layerDefinition.drawingInfo)');
         var drawingInfo = layer.layerDefinition.drawingInfo;
         drawingInfo.transparency = 100 - (layer.opacity * 100);
-        console.log(drawingInfo.transparency);
+        // console.log(drawingInfo.transparency);
 
         if (layer.layerDefinition.definitionExpression !== undefined) {
           where = layer.layerDefinition.definitionExpression;
@@ -178,7 +178,7 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
         return lyr;
       }
     } else {
-      console.log('create ArcGISFeatureLayer (without layerDefinition.drawingInfo)');
+      // console.log('create ArcGISFeatureLayer (without layerDefinition.drawingInfo)');
 
       if (layer.layerDefinition.definitionExpression !== undefined) {
         where = layer.layerDefinition.definitionExpression;
@@ -204,7 +204,7 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
       return lyr;
     }
   } else if (layer.layerType === 'ArcGISFeatureLayer') {
-    console.log('create ArcGISFeatureLayer');
+    // console.log('create ArcGISFeatureLayer');
     lyr = L.esri.featureLayer({
       url: layer.url,
       token: params.token || null,
@@ -279,7 +279,7 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
       onEachFeature: function (geojson, l) {
         l.feature.layerName = layer.title.split('_')[1];
         if (kml.popupInfo !== undefined && kml.popupInfo !== null) {
-          console.log(kml.popupInfo);
+          // console.log(kml.popupInfo);
           var popupContent = createPopupContent(kml.popupInfo, geojson.properties);
           // l.bindPopup(popupContent);
           l.feature.popupHtml = popupContent
@@ -318,7 +318,7 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
 
     return lyr;
   } else if (layer.layerType === 'ArcGISImageServiceLayer') {
-    console.log('create ArcGISImageServiceLayer');
+    // console.log('create ArcGISImageServiceLayer');
     lyr = L.esri.imageMapLayer({
       url: layer.url,
       token: params.token || null,
