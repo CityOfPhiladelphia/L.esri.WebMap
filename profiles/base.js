@@ -15,7 +15,7 @@ export default {
   plugins: [
     nodeResolve({
       jsnext: true,
-      main: false,
+      // main: false,
       browser: false,
       extensions: [ '.js', '.json' ]
     }),

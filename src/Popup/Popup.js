@@ -1,3 +1,5 @@
+import * as format from 'date-fns/format';
+console.log('format:', format);
 
 function transformPhoneNumber(value) {
   var s2 = (""+value).replace(/\D/g, '');
@@ -7,7 +9,9 @@ function transformPhoneNumber(value) {
 
 function transformDate(value) {
   // var moment = globals.moment;
-  return moment(value).format('MM/DD/YYYY');
+  // return moment(value).format('MM/DD/YYYY');
+  return format(value, 'MM/DD/YYYY');
+  // return value;
 }
 
 function transformDecimalPlace(value) {
