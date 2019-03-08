@@ -1,5 +1,10 @@
 import * as format from 'date-fns/format';
-console.log('format:', format);
+import * as get_day_of_year from 'date-fns/get_day_of_year';
+import * as get_iso_week from 'date-fns/get_iso_week';
+import * as get_iso_year from 'date-fns/get_iso_year';
+import * as is_valid from 'date-fns/is_valid';
+import * as en from 'date-fns/locale/en';
+import * as parse from 'date-fns/parse';
 
 function transformPhoneNumber(value) {
   var s2 = (""+value).replace(/\D/g, '');
