@@ -1,10 +1,4 @@
-import * as format from 'date-fns/format';
-import * as get_day_of_year from 'date-fns/get_day_of_year';
-import * as get_iso_week from 'date-fns/get_iso_week';
-import * as get_iso_year from 'date-fns/get_iso_year';
-import * as is_valid from 'date-fns/is_valid';
-import * as en from 'date-fns/locale/en';
-import * as parse from 'date-fns/parse';
+import * as datefns from 'date-fns';
 
 function transformPhoneNumber(value) {
   var s2 = (""+value).replace(/\D/g, '');
@@ -15,7 +9,7 @@ function transformPhoneNumber(value) {
 function transformDate(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
-  return format(value, 'MM/DD/YYYY');
+  return datefns.format(value, 'MM/DD/YYYY');
   // return value;
 }
 
