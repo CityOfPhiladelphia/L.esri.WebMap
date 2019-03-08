@@ -11,7 +11,7 @@ export default {
   entry: 'src/EsriLeafletWebMap.js',
   moduleName: 'L.esri',
   format: 'umd',
-  external: ['leaflet', 'esri-leaflet', 'leaflet-omnivore'],
+  external: ['leaflet', 'esri-leaflet', 'leaflet-omnivore', 'date-fns'],
   plugins: [
     nodeResolve({
       jsnext: true,
@@ -22,6 +22,7 @@ export default {
     json()
   ],
   globals: {
+    'date-fns': 'datefns',
     'leaflet': 'L',
     'esri-leaflet': 'L.esri',
     'leaflet-omnivore': 'omnivore'
