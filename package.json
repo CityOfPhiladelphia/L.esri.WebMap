@@ -36,9 +36,9 @@
     "esri-leaflet": "^2.2.3",
     "esri-leaflet-heatmap-feature-layer": "^2.0.0-beta.1",
     "esri-leaflet-renderers": "^2.0.4",
-    "esri-leaflet-vector": "^1.0.2",
+    "esri-leaflet-vector": "https://github.com/CityOfPhiladelphia/esri-leaflet-vector#a82cfeec87dfd99b2a9bcf30dfd56bf44eccc77e",
     "leaflet": "^1.4.0",
-    "leaflet-omnivore": "^0.3.2",
+    "leaflet-omnivore": "https://github.com/CityOfPhiladelphia/leaflet-omnivore#974ec5c849340b139b214e6970ffbbf0c4af9fb4",
     "leaflet-vectoricon": "^0.1.0",
     "leaflet.heat": "^0.1.3"
   },
