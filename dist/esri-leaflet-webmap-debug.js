@@ -1,4 +1,4 @@
-/* esri-leaflet-webmap - v0.4.0 - Tue Mar 19 2019 13:40:48 GMT-0400 (Eastern Daylight Time)
+/* esri-leaflet-webmap - v0.4.0 - Wed Mar 20 2019 11:49:39 GMT-0400 (Eastern Daylight Time)
  * Copyright (c) 2019 Yusuke Nunokawa <ynunokawa.dev@gmail.com>
  * MIT */
 (function (global, factory) {
