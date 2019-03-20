@@ -1,4 +1,16 @@
-# L.esri.WebMap
+# CityOfPhiladelphia's fork of L.esri.WebMap
+
+This is a dependency of [layerboard](https://github.com/CityOfPhiladelphia/layerboard)
+and is used by layerboard to create an app out of an AGO Webmap.
+
+The original [repo](https://github.com/ynunokawa/L.esri.WebMap) is listed in https://esri.github.io/esri-leaflet/plugins/
+as the official Esri Leaflet way to create an app from an AGO Webmap, but it has been mostly abandoned.
+
+We use our own fork as a dependency so that we can make our own changes to it and it's dependencies.
+
+
+
+-----------------------------------------------------------------------------
 
 [![Build Status](https://travis-ci.org/ynunokawa/L.esri.WebMap.svg?branch=master)](https://travis-ci.org/ynunokawa/L.esri.WebMap)
 
