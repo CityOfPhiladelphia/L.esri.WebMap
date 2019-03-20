@@ -8,6 +8,8 @@ as the official Esri Leaflet way to create an app from an AGO Webmap, but it has
 
 We use our own fork as a dependency so that we can make our own changes to it and it's dependencies.
 
+There is more information about all forked repos in the [phila-vue-mapping wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki/ForkedDependencies)
+
 
 
 -----------------------------------------------------------------------------
