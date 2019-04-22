@@ -21,8 +21,8 @@ function transformDecimalPlace(value) {
 
 
 export function createPopupContent (popupInfo, properties) {
-  // console.log('popupInfo:', popupInfo);
-  // console.log('popup properties:', properties);
+  console.log('popupInfo:', popupInfo);
+  console.log('popup properties:', properties);
   var r = /\{([^\]]*)\}/g;
   var titleText = '';
   var content = '';
