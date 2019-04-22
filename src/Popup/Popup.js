@@ -21,8 +21,8 @@ function transformDecimalPlace(value) {
 
 
 export function createPopupContent (popupInfo, properties) {
-  console.log('popupInfo:', popupInfo);
-  console.log('popup properties:', properties);
+  // console.log('popupInfo:', popupInfo);
+  // console.log('popup properties:', properties);
   var r = /\{([^\]]*)\}/g;
   var titleText = '';
   var content = '';
@@ -31,16 +31,16 @@ export function createPopupContent (popupInfo, properties) {
     titleText = popupInfo.title;
   }
 
-  console.log('titleText 1:', titleText);
-
   titleText = titleText.replace(r, function (s) {
     var m = r.exec(s);
-    console.log('r:', r, 'm:', m);
+    // console.log('r:', r, 'm:', m);
     var val = properties[m[1]];
     for (var i = 0; i < popupInfo.fieldInfos.length; i++) {
       if (popupInfo.fieldInfos[i].fieldName === m[1]) {
         if (popupInfo.fieldInfos[i].format) {
-          if (popupInfo.fieldInfos[i].format.dateFormat === 'shortDate') {
+          if (popupInfo.fieldInfos[i].format.dateFormat === 'shortDate'
+              || popupInfo.fieldInfos[i].format.dateFormat === 'shortDateShortTime'
+          ) {
             val = transformDate(properties[popupInfo.fieldInfos[i].fieldName])
           }
         }
@@ -48,8 +48,6 @@ export function createPopupContent (popupInfo, properties) {
     }
     return val;
   });
-
-  console.log('titleText 2:', titleText);
 
   content = '<div class="leaflet-popup-content-title text-center"><h4>' + titleText + '</h4></div><div class="leaflet-popup-content-description" style="max-height:200px;overflow:auto;">';
 
@@ -106,21 +104,26 @@ export function createPopupContent (popupInfo, properties) {
                   + transformPhoneNumber(properties[popupInfo.fieldInfos[i].fieldName])
                   + '</p>';
         // if the info is a date
-        } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE')
-            // || popupInfo.fieldInfos[i].fieldName === 'MOSTRECENTINSP'
-            // || popupInfo.fieldInfos[i].fieldName === 'WeekOf'
-        ) {
+        } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE')) {
             content += contentStart
                     + popupInfo.fieldInfos[i].label
                     + contentMiddle
                     + transformDate(properties[popupInfo.fieldInfos[i].fieldName])
                     + '</p>';
         } else if (popupInfo.fieldInfos[i].format) {
-          if (popupInfo.fieldInfos[i].format.dateFormat === 'shortDate') {
+          if (popupInfo.fieldInfos[i].format.dateFormat === 'shortDate'
+              || popupInfo.fieldInfos[i].format.dateFormat === 'shortDateShortTime'
+          ) {
             content += contentStart
                     + popupInfo.fieldInfos[i].label
                     + contentMiddle
                     + transformDate(properties[popupInfo.fieldInfos[i].fieldName])
+                    + '</p>';
+          } else {
+            content += contentStart
+                    + popupInfo.fieldInfos[i].label
+                    + contentMiddle
+                    + properties[popupInfo.fieldInfos[i].fieldName]
                     + '</p>';
           }
         } else {
