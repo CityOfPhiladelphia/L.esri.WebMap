@@ -35,6 +35,7 @@ export function createPopupContent (popupInfo, properties) {
 
   titleText = titleText.replace(r, function (s) {
     var m = r.exec(s);
+    console.log('r:', r, 'm:', m);
     return properties[m[1]];
   });
 
