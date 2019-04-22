@@ -92,8 +92,8 @@ export function createPopupContent (popupInfo, properties) {
                   + '</p>';
         // if the info is a date
       } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE') ||
-          popupInfo.fieldInfos[i].fieldName === 'Most Recent Inspection' ||
-          popupInfo.fieldInfos[i].fieldName === 'Week Of'
+          popupInfo.fieldInfos[i].fieldName === 'MOSTRECENTINSP' ||
+          popupInfo.fieldInfos[i].fieldName === 'WeekOf'
       ) {
           content += contentStart
                   + popupInfo.fieldInfos[i].label
