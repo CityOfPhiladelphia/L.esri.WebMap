@@ -91,7 +91,10 @@ export function createPopupContent (popupInfo, properties) {
                   + transformPhoneNumber(properties[popupInfo.fieldInfos[i].fieldName])
                   + '</p>';
         // if the info is a date
-      } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE')) {
+      } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE') ||
+          popupInfo.fieldInfos[i].fieldName === 'Most Recent Inspection' ||
+          popupInfo.fieldInfos[i].fieldName === 'Week Of'
+      ) {
           content += contentStart
                   + popupInfo.fieldInfos[i].label
                   + contentMiddle
