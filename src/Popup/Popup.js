@@ -31,10 +31,14 @@ export function createPopupContent (popupInfo, properties) {
     titleText = popupInfo.title;
   }
 
+  console.log('titleText 1:', titleText);
+
   titleText = titleText.replace(r, function (s) {
     var m = r.exec(s);
     return properties[m[1]];
   });
+
+  console.log('titleText 2:', titleText);
 
   content = '<div class="leaflet-popup-content-title text-center"><h4>' + titleText + '</h4></div><div class="leaflet-popup-content-description" style="max-height:200px;overflow:auto;">';
 
@@ -91,15 +95,23 @@ export function createPopupContent (popupInfo, properties) {
                   + transformPhoneNumber(properties[popupInfo.fieldInfos[i].fieldName])
                   + '</p>';
         // if the info is a date
-      } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE') ||
-          popupInfo.fieldInfos[i].fieldName === 'MOSTRECENTINSP' ||
-          popupInfo.fieldInfos[i].fieldName === 'WeekOf'
-      ) {
-          content += contentStart
-                  + popupInfo.fieldInfos[i].label
-                  + contentMiddle
-                  + transformDate(properties[popupInfo.fieldInfos[i].fieldName])
-                  + '</p>';
+        } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE')
+            // || popupInfo.fieldInfos[i].fieldName === 'MOSTRECENTINSP'
+            // || popupInfo.fieldInfos[i].fieldName === 'WeekOf'
+        ) {
+            content += contentStart
+                    + popupInfo.fieldInfos[i].label
+                    + contentMiddle
+                    + transformDate(properties[popupInfo.fieldInfos[i].fieldName])
+                    + '</p>';
+        } else if (popupInfo.fieldInfos[i].format) {
+          if (popupInfo.fieldInfos[i].format.dateFormat === 'shortDate') {
+            content += contentStart
+                    + popupInfo.fieldInfos[i].label
+                    + contentMiddle
+                    + transformDate(properties[popupInfo.fieldInfos[i].fieldName])
+                    + '</p>';
+          }
         } else {
           content += contentStart
                   + popupInfo.fieldInfos[i].label
