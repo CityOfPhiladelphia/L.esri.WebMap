@@ -36,7 +36,17 @@ export function createPopupContent (popupInfo, properties) {
   titleText = titleText.replace(r, function (s) {
     var m = r.exec(s);
     console.log('r:', r, 'm:', m);
-    return properties[m[1]];
+    var val = properties[m[1]];
+    for (var i = 0; i < popupInfo.fieldInfos.length; i++) {
+      if (popupInfo.fieldInfos[i].fieldName === m[1]) {
+        if (popupInfo.fieldInfos[i].format) {
+          if (popupInfo.fieldInfos[i].format.dateFormat === 'shortDate') {
+            val = transformDate(properties[popupInfo.fieldInfos[i].fieldName])
+          }
+        }
+      }
+    }
+    return val;
   });
 
   console.log('titleText 2:', titleText);
