@@ -1,4 +1,4 @@
-/* L-esri-WebMap - v0.4.0 - Mon Apr 22 2019 12:39:56 GMT-0400 (Eastern Daylight Time)
+/* L-esri-WebMap - v0.4.0 - Mon Apr 29 2019 17:44:35 GMT-0400 (Eastern Daylight Time)
  * Copyright (c) 2019 Yusuke Nunokawa <ynunokawa.dev@gmail.com>
  * MIT */
 (function (global, factory) {
