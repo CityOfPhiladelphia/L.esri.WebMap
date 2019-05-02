@@ -75,6 +75,7 @@ export function createPopupContent (popupInfo, properties) {
             popupInfo.fieldInfos[i].fieldName === 'WEBSITE' ||
             popupInfo.fieldInfos[i].fieldName === 'FINAL_LINK_COPY' ||
             popupInfo.fieldInfos[i].fieldName === 'LINK' ||
+            popupInfo.fieldInfos[i].fieldName === 'Permit Link' ||
             // zoning overlays:
             popupInfo.fieldInfos[i].fieldName === 'CODE_SECTION_LINK'
         ) {
