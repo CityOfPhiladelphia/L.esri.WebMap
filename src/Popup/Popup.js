@@ -16,7 +16,7 @@ function transformDate(value) {
 function transformDateTime(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
-  return datefns.format(value, 'MM/DD/YYYYTHH:mm:ss.SSSZ');
+  return datefns.format(value, 'MM/DD/YYYY HH:mm:ss');
   // return value;
 }
 
