@@ -13,6 +13,13 @@ function transformDate(value) {
   // return value;
 }
 
+function transformDateTime(value) {
+  // var moment = globals.moment;
+  // return moment(value).format('MM/DD/YYYY');
+  return datefns.format(value, 'MM/DD/YYYYTHH:mm:ss.SSSZ');
+  // return value;
+}
+
 function transformDecimalPlace(value) {
   var number = String(value).match(/\d+/)[0].replace(/(.)(?=(\d{3})+$)/g,'$1,');
   var label = String(value).replace(/[0-9]/g, '') || '';
@@ -107,6 +114,13 @@ export function createPopupContent (popupInfo, properties) {
                   + contentMiddle
                   + transformPhoneNumber(properties[popupInfo.fieldInfos[i].fieldName])
                   + '</p>';
+        // handle case
+        } else if (popupInfo.fieldInfos[i].fieldName.includes('time')) {
+            content += contentStart
+                    + popupInfo.fieldInfos[i].label
+                    + contentMiddle
+                    + transformDateTime(properties[popupInfo.fieldInfos[i].fieldName])
+                    + '</p>';
         // if the info is a date
         } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE')) {
             content += contentStart
