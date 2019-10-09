@@ -116,6 +116,7 @@ export function createPopupContent (popupInfo, properties) {
                   + '</p>';
         // handle case
         } else if (popupInfo.fieldInfos[i].fieldName.includes('time')) {
+            console.log('includes time');
             content += contentStart
                     + popupInfo.fieldInfos[i].label
                     + contentMiddle
@@ -123,6 +124,7 @@ export function createPopupContent (popupInfo, properties) {
                     + '</p>';
         // if the info is a date
         } else if (popupInfo.fieldInfos[i].fieldName.includes('DATE')) {
+            console.log('includes date');
             content += contentStart
                     + popupInfo.fieldInfos[i].label
                     + contentMiddle
@@ -132,6 +134,7 @@ export function createPopupContent (popupInfo, properties) {
           if (popupInfo.fieldInfos[i].format.dateFormat === 'shortDate'
               || popupInfo.fieldInfos[i].format.dateFormat === 'shortDateShortTime'
           ) {
+            console.log('is shortDate or shortDateShortTime');
             content += contentStart
                     + popupInfo.fieldInfos[i].label
                     + contentMiddle
