@@ -1,5 +1,5 @@
 // import * as datefns from 'date-fns';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 
 function transformPhoneNumber(value) {
   var s2 = (""+value).replace(/\D/g, '');
@@ -8,21 +8,13 @@ function transformPhoneNumber(value) {
 }
 
 function transformDate(value) {
-  // var moment = globals.moment;
-  // return moment(value).format('MM/DD/YYYY');
-  console.log('date value:', value);
-  var formattedValue = format(value, 'MM/dd/yyyy');
-  // var formattedValue = format(parseISO(value), 'MM/dd/yyyy');
-  return formattedValue;
+  // console.log('date value:', value);
+  return format(value, 'MM/dd/yyyy');
 }
 
 function transformDateTime(value) {
-  // var moment = globals.moment;
-  // return moment(value).format('MM/DD/YYYY');
-  console.log('datetime value:', value);
-  var formattedValue = format(value, 'MM/dd/yyyy hh:mm a');
-  // var formattedValue = format(parseISO(value), 'MM/dd/yyyy hh:mm a');
-  return formattedValue;
+  // console.log('datetime value:', value);
+  return format(value, 'MM/dd/yyyy hh:mm a');
 }
 
 function transformDecimalPlace(value) {
