@@ -10,15 +10,17 @@ function transformPhoneNumber(value) {
 function transformDate(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
-  return format(parseISO(value), 'MM/dd/yyyy');
-  // return value;
+  var value = format(parseISO(value), 'MM/dd/yyyy');
+  console.log('date value:', value);
+  return value;
 }
 
 function transformDateTime(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
-  return format(parseISO(value), 'MM/dd/yyyy hh:mm a');
-  // return value;
+  var value = format(parseISO(value), 'MM/dd/yyyy hh:mm a');
+  console.log('datetime value:', value);
+  return value;
 }
 
 function transformDecimalPlace(value) {
