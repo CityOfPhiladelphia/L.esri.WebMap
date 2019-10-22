@@ -10,14 +10,14 @@ function transformPhoneNumber(value) {
 function transformDate(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
-  return datefns.format(parseISO(value), 'MM/dd/yyyy');
+  return format(parseISO(value), 'MM/dd/yyyy');
   // return value;
 }
 
 function transformDateTime(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
-  return datefns.format(parseISO(value), 'MM/dd/yyyy hh:mm a');
+  return format(parseISO(value), 'MM/dd/yyyy hh:mm a');
   // return value;
 }
 
