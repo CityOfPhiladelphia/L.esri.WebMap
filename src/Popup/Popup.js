@@ -11,7 +11,8 @@ function transformDate(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
   console.log('date value:', value);
-  var formattedValue = format(parseISO(value), 'MM/dd/yyyy');
+  var formattedValue = format(value, 'MM/dd/yyyy');
+  // var formattedValue = format(parseISO(value), 'MM/dd/yyyy');
   return formattedValue;
 }
 
@@ -19,7 +20,8 @@ function transformDateTime(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
   console.log('datetime value:', value);
-  var formattedValue = format(parseISO(value), 'MM/dd/yyyy hh:mm a');
+  var formattedValue = format(value, 'MM/dd/yyyy hh:mm a');
+  // var formattedValue = format(parseISO(value), 'MM/dd/yyyy hh:mm a');
   return formattedValue;
 }
 
