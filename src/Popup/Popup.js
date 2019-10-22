@@ -1,4 +1,5 @@
-import * as datefns from 'date-fns';
+// import * as datefns from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 function transformPhoneNumber(value) {
   var s2 = (""+value).replace(/\D/g, '');
@@ -9,14 +10,14 @@ function transformPhoneNumber(value) {
 function transformDate(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
-  return datefns.format(value, 'MM/DD/YYYY');
+  return datefns.format(parseISO(value), 'MM/dd/yyyy');
   // return value;
 }
 
 function transformDateTime(value) {
   // var moment = globals.moment;
   // return moment(value).format('MM/DD/YYYY');
-  return datefns.format(value, 'MM/DD/YYYY HH:mm A');
+  return datefns.format(parseISO(value), 'MM/dd/yyyy hh:mm a');
   // return value;
 }
 
