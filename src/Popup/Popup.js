@@ -1,5 +1,5 @@
 // import * as datefns from 'date-fns';
-import { format } from 'date-fns';
+import { format } from 'date-fns/esm';
 
 function transformPhoneNumber(value) {
   var s2 = (""+value).replace(/\D/g, '');
